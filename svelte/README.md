@@ -16,9 +16,11 @@ npm init svelte@next
 npm init svelte@next my-app
 
 # mitigate broken modules and vulnerabilites before building
-# updsate the package and dependencies
+# update the package and dependencies
 npm install -g npm-check-updates
-npm -u
+ncu [-g] #lists dependencies in current directory or globally
+ncu -u
+npm update
 
 # install the packages
 npm install
