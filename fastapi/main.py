@@ -1,5 +1,8 @@
+import os
+import uvicorn
 from fastapi import FastAPI
 from starlette.responses import HTMLResponse
+from helper import FileUtility
 # import locale files
 from models import models
 from database.configuration import engine
@@ -11,16 +14,17 @@ from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(
-    title="Meinert.life API",
-    description="This is the API for meinert.life blog",
-    version="1.0.0",)
+properties_file = "configs/api.properties"
+properties_dict = FileUtility.load_properties(properties_file)
+origins = []
 
-origins = [
-    "http://meinert.life",
-    "https://meinert.life",
-    "http://localhost:5000",
-]
+app = FastAPI(
+    title=properties_dict["api.title"],
+    description=properties_dict["api.description"],
+    version=properties_dict["api.version"],)
+
+for api_prop in properties_dict["api.origins"].split(','):
+    origins.append[api_prop]
 
 app.add_middleware(
     CORSMiddleware,
@@ -40,7 +44,7 @@ def index():
 <!Doctype html>
     <html>
         <body>
-            <h1>SecureAPI</h1>
+            <h1>meinert.life API</h1>
             <div class="btn-group">
                 <a href="/docs"><button>SwaggerUI</button></a>
                 <a href="/redoc"><button>Redoc</button></a>
@@ -48,3 +52,7 @@ def index():
         </body>
     </html>
 """
+
+if __name__ == '__main__':
+    # run the application container
+    uvicorn.run(app=app, port=properties_dict["api.port"], host=properties_dict["api.host"])

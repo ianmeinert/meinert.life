@@ -2,12 +2,40 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
+		<meta name="description" content="" />
 		<link rel="icon" href="/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-
 		%svelte.head%
+		<style>
+			h1 {
+				color: #ff3e00;
+				text-transform: uppercase;
+			}
+
+			h2 {
+				color: #ff3e00;
+				text-transform: capitalize;
+			}
+
+			#navigation {
+				text-align: center;
+				padding: 10px;
+				margin: 0 auto;
+			}
+
+			ul#menu li {
+				display: inline;
+			}
+		</style>
 	</head>
 	<body>
+		<div id="navigation">
+			<ul id="menu">
+				<li><a href="/">Home</a></li>
+				<li><a href="/blog">Blog</a></li>
+				<li><a href="https://ancestry.meinert.life">Genealogy</a></li>
+			</ul>
+		</div>
 		<div id="svelte">%svelte.body%</div>
 	</body>
 </html>
